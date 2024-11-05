@@ -6,20 +6,20 @@ import (
 	"strings"
 	"time"
         "strconv"
+        "GriBotDiscLev/internal"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-const telegramBotToken = "7392721358:AAG2pKYglfGuNcTm7xAqicQFCoRsajSZUGs"
-
 var tasks = make(map[int64][]string) // хранение задач по chat ID
 
-func main() {
-	bot, err := tgbotapi.NewBotAPI(telegramBotToken)
-	if err != nil {
-		log.Fatalf("Ошибка создания бота: %v", err)
-	}
 
+func main() {
+        botToken := internal.BotToken // Получаем токен из config.go
+        bot, err := tgbotapi.NewBotAPI(botToken) // Используем botToken вместо telegramBotToken
+        if err != nil {
+        log.Fatalf("Ошибка создания бота: %v", err)
+        }
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
 	u := tgbotapi.NewUpdate(0)
